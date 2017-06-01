@@ -8,7 +8,7 @@ import subprocess
 ldapDomain = ''
 ldapUser = ''
 ldapPass = ''
-ldapDN = 'OU=GROUPS,DC=alliance,DC=ru' # OU=GROUPS,DC=domain,DC=tld'
+ldapDN = '' # OU=GROUPS,DC=domain,DC=tld'
 haproxyConf = '/usr/local/etc/haproxy.conf'
 groupName = sys.argv[1]
 
