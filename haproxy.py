@@ -10,8 +10,14 @@ ldapUser = ''
 ldapPass = ''
 ldapDN = '' # OU=GROUPS,DC=domain,DC=tld'
 haproxyConf = '/usr/local/etc/haproxy.conf'
-groupName = sys.argv[1]
+action = sys.argv[2]
 
+if action == 'restart':
+	restart()
+if action == 'group':
+	groupName = sys.argv[2]
+	getADGroups()
+	
 
 # Get users from Active Directory Groups and store it to files
 def getADGroups():
@@ -27,10 +33,11 @@ def getADGroups():
 			for member in result_attrs["member"]:
 				f.write(member.split(',')[0].split('=')[1] + '\n')
 	f.close()
+	restart()
 
 
 # Searching stik-tables to save it and to restore after reload
-def tables():
+def restart():
 	backends = [] 	
 	with open(haproxyConf) as f:
 		for line in f:
@@ -89,5 +96,5 @@ def insertDataTables(table):
 	c.close()
 
 
-getADGroups()
-tables()
+#getADGroups()
+#restart()
